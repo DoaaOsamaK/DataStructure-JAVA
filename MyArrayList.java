@@ -111,6 +111,26 @@ public class MyArrayList<Integer> {
         }
         return -1;
     }
+
+    public Integer set(int index, Integer val) {
+        Integer old;
+        if (index >= 0 && index < size) {
+            old = arr[index];
+            arr[index] = val;
+            return old;
+        } else {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+    }
+
+    public Integer get(int index) {
+        if (index >= 0 && index < size) {
+            return arr[index];
+        } else {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+
+        }
+    }
 }
     
     
