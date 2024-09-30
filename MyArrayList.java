@@ -145,6 +145,10 @@ public class MyArrayList<Integer> {
         }
         return true;
     }
+
+    public boolean contains(Integer val){
+        return indexOf(val)!=-1;
+    }
 }
     
     
