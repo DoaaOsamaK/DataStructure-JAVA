@@ -93,6 +93,15 @@ public class MyArrayList<Integer> {
             resize(arr.length / 2);
         }
     }
+
+     public Integer remove(Integer val) {
+        int index = indexOf(val);
+        if (index != -1) {
+            return remove(index);
+        } else {
+            return null;
+        }
+    }
 }
     
     
