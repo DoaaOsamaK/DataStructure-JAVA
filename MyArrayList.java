@@ -158,6 +158,18 @@ public class MyArrayList<Integer> {
             }
         }
     }
+
+     public void addAll(MyArrayList<Integer> array2){
+        
+        while(array2.size+this.size>arr.length){
+            resize(arr.length*2);
+        }
+        
+        for (int i = 0; i < array2.size; i++) {
+            this.add(array2.get(i));
+        }
+        
+    }
 }
     
     
