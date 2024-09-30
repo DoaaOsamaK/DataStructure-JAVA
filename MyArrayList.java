@@ -131,6 +131,20 @@ public class MyArrayList<Integer> {
 
         }
     }
+
+    public boolean equals(MyArrayList<Integer> arr) {
+        if (this.size != arr.size) {
+            return false;
+        }
+        for (int i = 0; i < arr.size; i++) {
+            Integer x = arr.get(i);
+            Integer y = this.get(i);
+            if (x == null ? y != null : !x.equals(y)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
     
     
