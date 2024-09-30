@@ -75,6 +75,24 @@ public class MyArrayList<Integer> {
         arr=(Integer[]) new Object[5];
         size=0;
     }
+     public Integer remove(int index) {
+        if (index >= 0 && index < size) {
+            Integer old = arr[index];
+            shiftLeft(index);
+            return old;
+        } else {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+    }
+    private void shiftLeft(int index) {
+        for (int i = index; i < size - 1; i++) {
+            arr[i] = arr[i + 1];
+        }
+        arr[--size] = null;
+        if (size > 0 && size < arr.length / 4) {
+            resize(arr.length / 2);
+        }
+    }
 }
     
     
