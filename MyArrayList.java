@@ -149,6 +149,15 @@ public class MyArrayList<Integer> {
     public boolean contains(Integer val){
         return indexOf(val)!=-1;
     }
+
+    public void removeAll(Integer val){
+        for (int i = 0; i < size; i++) {
+            if(arr[i]!=null&&arr[i].equals(val)){
+                remove(i);
+                i--;
+            }
+        }
+    }
 }
     
     
