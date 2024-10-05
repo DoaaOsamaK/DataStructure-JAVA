@@ -1,89 +1,70 @@
 package datastructure;
 
-public class MyArrayList<Integer> {
-    
-    private Integer[] arr;
+public class MyArrayList<T> {
+
+    private T[] arr;
     private int size;
 
+    // Constructor: Initializes the array with a default size of 8
     public MyArrayList() {
-        arr = (Integer[]) new Object[8]; // Initialized array with size 8
+        arr = (T[]) new Object[8];
         size = 0;
     }
-    
-    // ADD
-    public void add(Integer val) {
-        // If the array is full
+
+    // Adds an element to the list
+    public void add(T val) {
         if (size == arr.length) {
-            resize(arr.length * 2); // Double the size
+            resize(arr.length * 2); // Double the array size when full
         }
-        // Add the new element
         arr[size++] = val;
     }
-    
+
+    // Adds an element at the specified index
+    public void add(int index, T val) {
+        if (index < 0 || index > size) {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        if (size == arr.length) {
+            resize(arr.length * 2);
+        }
+        shiftRight(index);
+        arr[index] = val;
+    }
+
+    // Resizes the array to a new size
     private void resize(int newSize) {
-        // Create new array with larger size
-        Integer[] newArray = (Integer[]) new Object[newSize];
+        T[] newArray = (T[]) new Object[newSize];
         for (int i = 0; i < size; i++) {
             newArray[i] = arr[i];
         }
-        // Update the reference to point to the new array
         arr = newArray;
     }
-    
-    public void add(int index, Integer val){
-        if(index>=0&&index<arr.length){
-           if(size==arr.length){
-            resize(arr.length*2);
-        }
-           shiftRight(index);
-           
-           arr[index]=val;
-        }
-           else{
-                    throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Size: " + size); 
-                         }}
-    
-    private void shiftRight(int index){
-        for (int i = size; i < index; i--) {
-            arr[i]=arr[i-1];
+
+    // Shifts elements to the right starting from the given index
+    private void shiftRight(int index) {
+        for (int i = size; i > index; i--) {
+            arr[i] = arr[i - 1];
         }
         size++;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder("[");
-        for (int i = 0; i < size; i++) {
-            s.append(arr[i]);
-            if (i != size - 1) {
-                s.append(", ");
-            }
-        }
-        s.append("]");
-        return s.toString();
-    }
-    
-    public int size(){
-        return size;
-    }
-    
-    public boolean isEmpty(){
-        return size==0;
-    }
-    
-    public void clear(){
-        arr=(Integer[]) new Object[5];
-        size=0;
-    }
-     public Integer remove(int index) {
-        if (index >= 0 && index < size) {
-            Integer old = arr[index];
-            shiftLeft(index);
-            return old;
-        } else {
+    // Removes the element at the specified index and returns it
+    public T remove(int index) {
+        if (index < 0 || index >= size) {
             throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
+        T old = arr[index];
+        shiftLeft(index);
+        return old;
     }
+
+    // Removes the first occurrence of the specified value and returns it
+    public T remove(T val) {
+        int index = indexOf(val);
+        return (index != -1) ? remove(index) : null;
+    }
+
+    // Shifts elements to the left starting from the given index
     private void shiftLeft(int index) {
         for (int i = index; i < size - 1; i++) {
             arr[i] = arr[i + 1];
@@ -94,16 +75,8 @@ public class MyArrayList<Integer> {
         }
     }
 
-     public Integer remove(Integer val) {
-        int index = indexOf(val);
-        if (index != -1) {
-            return remove(index);
-        } else {
-            return null;
-        }
-    }
-
-     public int indexOf(Integer val) {
+    // Returns the index of the first occurrence of the value, or -1 if not found
+    public int indexOf(T val) {
         for (int i = 0; i < size; i++) {
             if (arr[i] != null && arr[i].equals(val)) {
                 return i;
@@ -112,74 +85,101 @@ public class MyArrayList<Integer> {
         return -1;
     }
 
-    public Integer set(int index, Integer val) {
-        Integer old;
-        if (index >= 0 && index < size) {
-            old = arr[index];
-            arr[index] = val;
-            return old;
-        } else {
+    // Returns the index of the last occurrence of the value, or -1 if not found
+    public int lastIndexOf(T val) {
+        for (int i = size - 1; i >= 0; i--) {
+            if (arr[i] != null && arr[i].equals(val)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // Replaces the element at the specified index and returns the old value
+    public T set(int index, T val) {
+        if (index < 0 || index >= size) {
             throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        T old = arr[index];
+        arr[index] = val;
+        return old;
+    }
+
+    // Returns the element at the specified index
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        return arr[index];
+    }
+
+    // Returns the size of the list
+    public int size() {
+        return size;
+    }
+
+    // Checks if the list is empty
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // Clears the list
+    public void clear() {
+        arr = (T[]) new Object[8];
+        size = 0;
+    }
+
+    // Checks if the list contains the specified value
+    public boolean contains(T val) {
+        return indexOf(val) != -1;
+    }
+
+    // Removes all occurrences of the specified value from the list
+    public void removeAll(T val) {
+        for (int i = 0; i < size; i++) {
+            if (arr[i] != null && arr[i].equals(val)) {
+                remove(i);
+                i--; // Re-adjust the index after removal
+            }
         }
     }
 
-    public Integer get(int index) {
-        if (index >= 0 && index < size) {
-            return arr[index];
-        } else {
-            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-
+    // Adds all elements from another MyArrayList to this list
+    public void addAll(MyArrayList<T> other) {
+        while (other.size + this.size > arr.length) {
+            resize(arr.length * 2);
+        }
+        for (int i = 0; i < other.size; i++) {
+            this.add(other.get(i));
         }
     }
 
-    public boolean equals(MyArrayList<Integer> arr) {
-        if (this.size != arr.size) {
+    // Checks if this list is equal to another MyArrayList
+    public boolean equals(MyArrayList<T> other) {
+        if (this.size != other.size) {
             return false;
         }
-        for (int i = 0; i < arr.size; i++) {
-            Integer x = arr.get(i);
-            Integer y = this.get(i);
-            if (x == null ? y != null : !x.equals(y)) {
+        for (int i = 0; i < this.size; i++) {
+            T thisVal = this.get(i);
+            T otherVal = other.get(i);
+            if (thisVal == null ? otherVal != null : !thisVal.equals(otherVal)) {
                 return false;
             }
         }
         return true;
     }
 
-    public boolean contains(Integer val){
-        return indexOf(val)!=-1;
-    }
-
-    public void removeAll(Integer val){
+    // Returns the string representation of the list
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[");
         for (int i = 0; i < size; i++) {
-            if(arr[i]!=null&&arr[i].equals(val)){
-                remove(i);
-                i--;
+            sb.append(arr[i]);
+            if (i < size - 1) {
+                sb.append(", ");
             }
         }
-    }
-
-     public void addAll(MyArrayList<Integer> array2){
-        
-        while(array2.size+this.size>arr.length){
-            resize(arr.length*2);
-        }
-        
-        for (int i = 0; i < array2.size; i++) {
-            this.add(array2.get(i));
-        }
-    }
-
-    public int lastIndexOf(Integer value) {
-        for (int i = size - 1; i >= 0; i--) {
-            if (arr[i] != null && arr[i].equals(value)) {
-                return i;
-            }
-        }
-        return -1;
+        sb.append("]");
+        return sb.toString();
     }
 }
-    
-    
-    
-
