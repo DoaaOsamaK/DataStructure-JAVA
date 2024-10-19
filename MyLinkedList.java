@@ -86,6 +86,17 @@ public class MyLinkedList {
     }
 }
 
+        public void addFirst(D val){
+        Node<D> newNode = new Node<>(val);
+        newNode.next=head;
+        head=newNode;
+        
+        if(size==0){
+            tail=newNode;
+        }
+        size++;
+    }
+
 
 
 }
