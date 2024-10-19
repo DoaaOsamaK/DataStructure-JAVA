@@ -112,6 +112,10 @@ public class MyLinkedList {
         return old;
     }
 
+      public int size(){
+        return size;
+    }
+
 
 
 }
