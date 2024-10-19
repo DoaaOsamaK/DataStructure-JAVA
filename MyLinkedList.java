@@ -1,14 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package datastructure;
 
-/**
- *
- * @author HP
- */
+
 public class MyLinkedList {
+      class Node<D>{
+        
+        D value;
+        Node<D> next;
+        
+        
+        Node(D value){
+            this.value=value;
+            this.next=null;
+        }
+        
+    }
     
+    private Node<D> head;
+    private Node<D> tail;
+    private int size;
+    
+    MyLinkedList(){
+        head=null;
+        tail=null;
+        size=0;
+    }
 }
