@@ -116,6 +116,10 @@ public class MyLinkedList {
         return size;
     }
 
+      public boolean isEmpty() {
+    return size == 0;
+}
+
 
 
 }
