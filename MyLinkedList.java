@@ -153,4 +153,9 @@ public String print() {
     return s.toString();
 }
 
+      @Override
+    public String toString() {
+        return print();
+    }
+      
 }
