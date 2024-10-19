@@ -1,5 +1,8 @@
 package datastructure;
 
+import java.util.NoSuchElementException;
+
+
 
 public class MyLinkedList {
       class Node<D>{
@@ -120,6 +123,13 @@ public class MyLinkedList {
     return size == 0;
 }
 
+
+public D getFirst() {
+    if (head == null) {
+        throw new NoSuchElementException("List is empty");
+    }
+    return head.value;
+}
 
 
 }
