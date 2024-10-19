@@ -24,4 +24,18 @@ public class MyLinkedList {
         tail=null;
         size=0;
     }
+
+      public void add(D value) {
+    Node<D> newNode = new Node<>(value);
+    if (head == null) {
+        head = newNode;
+        tail = newNode;
+    } else {
+        tail.next = newNode;
+        tail = newNode;
+    }
+    size++; 
+}
+      
+
 }
