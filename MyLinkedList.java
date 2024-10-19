@@ -97,6 +97,21 @@ public class MyLinkedList {
         size++;
     }
 
+      public D removeFirst(){
+        if (head == null) {
+            throw new ArrayIndexOutOfBoundsException("List is empty");
+        }
+        
+        D old=head.value;
+        head=head.next;
+        
+        if(head==null){
+            tail=null;
+        }
+        size--;
+        return old;
+    }
+
 
 
 }
