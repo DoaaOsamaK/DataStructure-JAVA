@@ -131,5 +131,18 @@ public D getFirst() {
     return head.value;
 }
 
+public String print() {
+    StringBuilder s = new StringBuilder();
+    Node<D> current = head;
+
+    while (current != null) {
+        s.append(current.value);
+        if (current.next != null) {
+            s.append(" , ");
+        }
+        current = current.next;
+    }
+    return s.toString();
+}
 
 }
