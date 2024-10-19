@@ -59,5 +59,33 @@ public class MyLinkedList {
     }
 }
 
+      public D remove(int index) {
+    if (index < 0 || index >= size) {
+        throw new ArrayIndexOutOfBoundsException("Invalid index: " + index + ", Size: " + size);
+    }
+
+    if (index == 0) {
+        return removeFirst();  
+    } else {
+        Node<D> current = head;
+        for (int i = 0; i < index - 1; i++) {
+            current = current.next;
+        }
+
+        D old = current.next.value;
+
+        if (index == size - 1) {
+            tail = current;
+            current.next = null;
+        } else {
+            current.next = current.next.next;
+        }
+
+        size--;
+        return old;
+    }
+}
+
+
 
 }
