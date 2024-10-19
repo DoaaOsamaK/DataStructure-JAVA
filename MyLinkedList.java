@@ -131,6 +131,14 @@ public D getFirst() {
     return head.value;
 }
 
+        public D getLast() {
+        if (tail == null) {
+            throw new ArrayIndexOutOfBoundsException("List is empty");
+        }
+        return tail.value;
+    }
+      
+
 public String print() {
     StringBuilder s = new StringBuilder();
     Node<D> current = head;
