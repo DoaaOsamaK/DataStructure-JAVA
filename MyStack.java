@@ -38,4 +38,8 @@ public class MyStack<T> {
         return elements[size - 1];
     }
 
+    public int size() {
+        return size;
+    }
+
 }
