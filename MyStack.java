@@ -26,3 +26,9 @@ public class MyStack<T> {
             elements = Arrays.copyOf(elements, elements.length * 2);
         }
     }
+
+     public boolean isEmpty() {
+        return size == 0;
+    }
+
+}
