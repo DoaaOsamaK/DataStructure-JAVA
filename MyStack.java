@@ -14,3 +14,15 @@ public class MyStack<T> {
         elements = (T[]) new Object[INITIAL_CAPACITY];
         size = 0;
     }
+
+     public void push(T value) {
+        ensureCapacity();
+        elements[size++] = value;
+    }
+
+     @SuppressWarnings("unchecked")
+    private void ensureCapacity() {
+        if (size == elements.length) {
+            elements = Arrays.copyOf(elements, elements.length * 2);
+        }
+    }
