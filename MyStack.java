@@ -42,4 +42,13 @@ public class MyStack<T> {
         return size;
     }
 
+    public T pop() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        T value = elements[--size];
+        elements[size] = null;
+        return value;
+    }
+
 }
