@@ -31,4 +31,11 @@ public class MyStack<T> {
         return size == 0;
     }
 
+    public T peek() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        return elements[size - 1];
+    }
+
 }
