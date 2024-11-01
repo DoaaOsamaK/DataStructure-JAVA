@@ -169,5 +169,21 @@ public class MyLinkedList<D> {
         }
     }
 
+    public void rotateRight() {
+        if (head == null || head.next == null) {
+            return;
+        }
+        Node cur = head;
+        Node temp = head;
+
+        while (cur.next.next != null) {
+            cur = cur.next;
+        }
+        temp = cur.next;
+        temp.next = head;
+        head = temp;
+        cur.next = null;
+    }
+
 
 }
