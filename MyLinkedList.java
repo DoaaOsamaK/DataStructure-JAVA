@@ -185,5 +185,20 @@ public class MyLinkedList<D> {
         cur.next = null;
     }
 
+    public boolean isPalendrom() {
+        while (true) {
+            Node cur = head;
+            if (cur == null || cur.next == null) {
+                return true;
+            }
+            rotateRight();
+            if (head.value != head.next.value) {
+                return false;
+            }
+            removeFirst();
+            removeFirst();
+        }
+    }
+
 
 }
