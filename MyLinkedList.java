@@ -151,4 +151,23 @@ public class MyLinkedList<D> {
     public String toString() {
         return print();
     }
+
+    public void removeDuplicates() {
+        Node curr = head;
+
+        while (curr != null && curr.next != null) {
+            Node temp = curr;
+
+            while (temp.next != null) {
+                if (curr.value == temp.next.value) {
+                    temp.next = temp.next.next;
+                } else {
+                    temp = temp.next;
+                }
+            }
+            curr = curr.next;
+        }
+    }
+
+
 }
