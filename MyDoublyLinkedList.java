@@ -12,33 +12,29 @@ public class MyDoublyLinkedList {
     }
 
     private Node head;
+    private Node tail;
 
     public void addFront(int data) {
         Node newNode = new Node(data);
         newNode.next = head;
-        newNode.prev = null;
-
         if (head != null) {
             head.prev = newNode;
+        } else {
+            tail = newNode;
         }
         head = newNode;
     }
 
     public void addEnd(int data) {
         Node newNode = new Node(data);
-        Node last = head;
-
         if (head == null) {
             head = newNode;
+            tail = newNode;
             return;
         }
-
-        while (last.next != null) {
-            last = last.next;
-        }
-
-        last.next = newNode;
-        newNode.prev = last;
+        tail.next = newNode;
+        newNode.prev = tail;
+        tail = newNode;
     }
 
     public void insertAtPosition(int data, int position) {
@@ -56,7 +52,7 @@ public class MyDoublyLinkedList {
             currentPosition++;
         }
 
-        if (current == null) { // Insert at the end if position is greater than list size
+        if (current == null) {
             addEnd(data);
         } else {
             newNode.next = current.next;
@@ -64,7 +60,7 @@ public class MyDoublyLinkedList {
             if (current.next != null) {
                 current.next.prev = newNode;
             } else {
-                tail = newNode; // Update tail if new node is the last node
+                tail = newNode;
             }
             current.next = newNode;
         }
@@ -92,14 +88,13 @@ public class MyDoublyLinkedList {
         if (current.next != null) {
             current.next.prev = current.prev;
         } else {
-            tail = current.prev; // Update tail if deleting the last node
+            tail = current.prev;
         }
 
         if (current.prev != null) {
             current.prev.next = current.next;
         }
     }
-
 
     public void deleteNode(Node del) {
         if (head == null || del == null) {
@@ -112,6 +107,8 @@ public class MyDoublyLinkedList {
 
         if (del.next != null) {
             del.next.prev = del.prev;
+        } else {
+            tail = del.prev;
         }
 
         if (del.prev != null) {
@@ -121,6 +118,7 @@ public class MyDoublyLinkedList {
 
     public void deleteAtBeginning() {
         if (head == null) return;
+
         if (head.next == null) {
             head = null;
             tail = null;
@@ -132,6 +130,7 @@ public class MyDoublyLinkedList {
 
     public void deleteAtEnd() {
         if (tail == null) return;
+
         if (head == tail) {
             head = null;
             tail = null;
@@ -151,18 +150,47 @@ public class MyDoublyLinkedList {
     }
 
     public void displayBackward() {
-        Node last = head;
-        if (last == null) return;
-
-        while (last.next != null) {
-            last = last.next;
-        }
-
-        while (last != null) {
-            System.out.print(last.data + " ");
-            last = last.prev;
+        Node node = tail;
+        while (node != null) {
+            System.out.print(node.data + " ");
+            node = node.prev;
         }
         System.out.println();
     }
 
+    public static void main(String[] args) {
+        MyDoublyLinkedList dll = new MyDoublyLinkedList();
+
+        dll.addEnd(1);
+        dll.addEnd(2);
+        dll.addEnd(3);
+        dll.addEnd(4);
+        dll.addEnd(5);
+
+        System.out.print("After insertion at tail: ");
+        dll.displayForward();
+
+        dll.addFront(0);
+        System.out.print("After insertion at head: ");
+        dll.displayForward();
+
+        dll.insertAtPosition(6, 3);
+        System.out.print("After insertion at position 3: ");
+        dll.displayForward();
+
+        dll.deleteAtBeginning();
+        System.out.print("After deletion at the beginning: ");
+        dll.displayForward();
+
+        dll.deleteAtEnd();
+        System.out.print("After deletion at the end: ");
+        dll.displayForward();
+
+        dll.deleteAtSpecificPosition(2);
+        System.out.print("After deletion at position 2: ");
+        dll.displayForward();
+
+        System.out.print("Display in reverse order: ");
+        dll.displayBackward();
+    }
 }
