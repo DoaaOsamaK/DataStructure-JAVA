@@ -12,4 +12,15 @@ public class MyDoublyLinkedList {
     }
 
     private Node head;
+
+    public void addFront(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        newNode.prev = null;
+
+        if (head != null) {
+            head.prev = newNode;
+        }
+        head = newNode;
+    }
 }
