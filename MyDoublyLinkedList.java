@@ -41,6 +41,35 @@ public class MyDoublyLinkedList {
         newNode.prev = last;
     }
 
+    public void insertAtPosition(int data, int position) {
+        if (position == 1) {
+            addFront(data);
+            return;
+        }
+
+        Node newNode = new Node(data);
+        Node current = head;
+        int currentPosition = 1;
+
+        while (current != null && currentPosition < position - 1) {
+            current = current.next;
+            currentPosition++;
+        }
+
+        if (current == null) { // Insert at the end if position is greater than list size
+            addEnd(data);
+        } else {
+            newNode.next = current.next;
+            newNode.prev = current;
+            if (current.next != null) {
+                current.next.prev = newNode;
+            } else {
+                tail = newNode; // Update tail if new node is the last node
+            }
+            current.next = newNode;
+        }
+    }
+
     public void deleteNode(Node del) {
         if (head == null || del == null) {
             return;
