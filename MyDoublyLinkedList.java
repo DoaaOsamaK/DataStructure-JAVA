@@ -70,6 +70,37 @@ public class MyDoublyLinkedList {
         }
     }
 
+    public void deleteAtSpecificPosition(int position) {
+        if (position == 1) {
+            deleteAtBeginning();
+            return;
+        }
+
+        Node current = head;
+        int currentPosition = 1;
+
+        while (current != null && currentPosition < position) {
+            current = current.next;
+            currentPosition++;
+        }
+
+        if (current == null) {
+            System.out.println("Position out of bounds");
+            return;
+        }
+
+        if (current.next != null) {
+            current.next.prev = current.prev;
+        } else {
+            tail = current.prev; // Update tail if deleting the last node
+        }
+
+        if (current.prev != null) {
+            current.prev.next = current.next;
+        }
+    }
+
+
     public void deleteNode(Node del) {
         if (head == null || del == null) {
             return;
