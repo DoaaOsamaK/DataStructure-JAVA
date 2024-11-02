@@ -68,4 +68,19 @@ public class MyDoublyLinkedList {
         System.out.println();
     }
 
+    public void displayBackward() {
+        Node last = head;
+        if (last == null) return;
+
+        while (last.next != null) {
+            last = last.next;
+        }
+
+        while (last != null) {
+            System.out.print(last.data + " ");
+            last = last.prev;
+        }
+        System.out.println();
+    }
+
 }
