@@ -88,6 +88,17 @@ public class MyDoublyLinkedList {
         }
     }
 
+    public void deleteAtBeginning() {
+        if (head == null) return;
+        if (head.next == null) {
+            head = null;
+            tail = null;
+        } else {
+            head = head.next;
+            head.prev = null;
+        }
+    }
+
     public void displayForward() {
         Node node = head;
         while (node != null) {
