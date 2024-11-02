@@ -99,6 +99,17 @@ public class MyDoublyLinkedList {
         }
     }
 
+    public void deleteAtEnd() {
+        if (tail == null) return;
+        if (head == tail) {
+            head = null;
+            tail = null;
+        } else {
+            tail = tail.prev;
+            tail.next = null;
+        }
+    }
+
     public void displayForward() {
         Node node = head;
         while (node != null) {
