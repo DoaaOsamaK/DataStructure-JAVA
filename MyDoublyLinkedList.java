@@ -23,4 +23,22 @@ public class MyDoublyLinkedList {
         }
         head = newNode;
     }
+
+    public void addEnd(int data) {
+        Node newNode = new Node(data);
+        Node last = head;
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        while (last.next != null) {
+            last = last.next;
+        }
+
+        last.next = newNode;
+        newNode.prev = last;
+    }
+
 }
